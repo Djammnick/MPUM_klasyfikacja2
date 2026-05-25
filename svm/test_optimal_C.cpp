@@ -15,7 +15,7 @@ int main() {
     vector<DataPoint> testData = inputData("../data/test.data", '\t');
     clog << "Successfully read " << testData.size() << " testing datapoints.\n";
 
-    vector<double> C_values = {0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000};
+    vector<double> C_values = {0.001, 0.01, 0.1, 1, 10, 20, 30, 45, 50, 60, 75, 100, 150, 200, 250, 500, 1000, 10000};
     vector<SVM*> svms(C_values.size());
     for(int i = 0; i < C_values.size(); i++) {
         svms[i] = new SVM(trainData, 50000, C_values[i]);

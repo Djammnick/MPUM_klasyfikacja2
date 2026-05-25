@@ -181,6 +181,58 @@ public:
         }
     }
 
+    void calculate_nomisses() {
+        RandomElementGenerator gen(0, m-1); // rng for picking pairs;
+
+        // Finding the optimal alpha coefficients
+        cout << "First phase - pairs selected randomly.\n";
+        vector<double> alpha(m, 0);
+        long long i, j;
+        for(int x = 0; x < epochs/2; x++) {
+            i = gen.get();
+            do { j = gen.get(); } while(i == j);
+            // Optimize with respect to the a_i, a_j pair.
+            optimize(alpha, i, j);
+            if((x+1) % (epochs/20) == 0) {
+                cout << "Completed " << x+1 << "/" << epochs/2 << ".\n";
+            }
+        }
+        // Calculating sequentially
+        cout << "Second phase - sequencial optimization, second element random.\n";
+        for(int x = 0; x < epochs/2; x++) {
+            i = (i+1) % m;
+            do { j = gen.get(); } while(i == j);
+            // Optimize with respect to the a_i, a_j pair.
+            optimize(alpha, i, j);
+            if((x+1) % (epochs/20) == 0) {
+                cout << "Completed " << x+1 << "/" << epochs/2 << ".\n";
+            }
+        }
+
+        // Finding the optimal direction w
+        for(int u = 0; u < m; u++) {
+            for(int v = 0; v < param; v++) {
+                w[v] += alpha[u]*data[u].Y*data[u].X[v];
+            }
+        }
+        cout << "Weights found.\n";
+
+        // Finding the optimal bias b
+        double C_m = C/m;
+        found = false;
+        for(int u = 0; u < m && !found; u++) {
+            if(alpha[u] > 0 && alpha[u] < C_m) {
+                cout << "Bias found.\n";
+                b = data[u].Y - dotprod(w, data[u].X);
+                found = true;
+            }
+        }
+
+        if(!found) {
+            cout << "Failed to find a satisfactory bias.\n";
+        }
+    }
+
     void importWeights(vector<double>& w, double b) {
         if(w.size() != data.size())
         this->w = w; this->b = b;

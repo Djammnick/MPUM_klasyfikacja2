@@ -17,7 +17,7 @@ int main() {
 
     SVM svm(trainData, 20000, 10);
 
-    DataPoint weights = inputWeights("output/weights.txt", '\t');
+    DataPoint weights = inputWeights("output/weights200_nomisses.txt", '\t'); // best thus far
     svm.importWeights(weights.X, weights.Y);
 
     testSVM(trainData, svm, "output/train.txt");
