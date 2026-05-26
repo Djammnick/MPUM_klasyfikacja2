@@ -9,7 +9,7 @@ int main() {
     vector<DataPoint> trainData = inputData("../data/train.data", '\t');
     clog << "Successfully read " << trainData.size() << " training datapoints.\n";
 
-    SVM svm(trainData, 25000, 10);
+    SVM svm(trainData, 1000000, 30);
     svm.calculate();
 
     clog << "Finished SVM training.\n";

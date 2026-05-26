@@ -174,7 +174,7 @@ public:
         if(!fout.good()) throw runtime_error("Could not open output file at " + fileName + ".");
         serialize(root, fout);
         fout.close();
-        cout << "Exported decision tree.\n";
+        //cout << "Exported decision tree.\n";
     }
 
     // Import the decision structure
@@ -183,7 +183,7 @@ public:
         if(!fin.good()) throw runtime_error("Could not open input file at " + fileName + ".");
         root = deserialize(fin);
         fin.close();
-        cout << "Imported decision tree.\n";
+        //cout << "Imported decision tree.\n";
     }
 
     // Test the decision tree on a given set of datapoints.

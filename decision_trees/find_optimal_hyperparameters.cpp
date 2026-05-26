@@ -12,8 +12,12 @@ int main() {
     vector<DataPoint> testData = inputData("../data/test.data", '\t');
     clog << "Successfully read " << testData.size() << " testing datapoint.\n";
 
-    vector<int> split_values = {1, 2, 3, 4, 5, 10};
-    vector<int> depth_values = {10, 12, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 30};
+    vector<int> split_values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 37, 40};
+    vector<int> depth_values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 37, 40};
+
+    vector<double> splits;
+    vector<double> depths;
+    vector<double> valids;
 
     double bestValidationError = 1;
     pair<int, int> bestPair;
@@ -30,12 +34,23 @@ int main() {
                 bestValidationError = validError;
                 bestPair = {depth_values[j], split_values[i]};
             }
-            cout << "With split_limit=" << split_values[i] << " and depth_limit=" << depth_values[j] << "\n";
-            cout << "TRAIN % WRONG: " << trainError << '\n';
-            cout << "VALID % WRONG: " << validError << '\n';
-            cout << "TEST % WRONG: " << testError << '\n';
+            splits.push_back(split_values[i]);
+            depths.push_back(depth_values[j]);
+            valids.push_back(validError);
+            //cout << "With split_limit=" << split_values[i] << " and depth_limit=" << depth_values[j] << "\n";
+            //cout << "TRAIN % WRONG: " << trainError << '\n';
+            //cout << "VALID % WRONG: " << validError << '\n';
+            //cout << "TEST % WRONG: " << testError << '\n';
         }
     }
+
+    for(auto &s : splits) cout << s << ", ";
+    cout << '\n';
+    for(auto &d : depths) cout << d << ", ";
+    cout << '\n';
+    for(auto &e : valids) cout << e << ", ";
+    cout << '\n';
+
     cout << "Best-performing model (based on validation set):\n";
     cout << "Depth limit: " << bestPair.first << ' ' << "Split limit: " << bestPair.second << " with validation error " << bestValidationError << '\n';
 

@@ -7,7 +7,7 @@ int main() {
     vector<DataPoint> trainData = inputData("../data/train.data", '\t');
     clog << "Successfully read " << trainData.size() << " training datapoints.\n";
 
-    AdaBoostClassifier adaBoostClassifier(5);
+    AdaBoostClassifier adaBoostClassifier(55, 7);
     adaBoostClassifier.train(trainData);
 
     double trainError = adaBoostClassifier.testAdaBoost(trainData);

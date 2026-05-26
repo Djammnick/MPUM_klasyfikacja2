@@ -237,15 +237,16 @@ struct WeakEstimator {
 class AdaBoostClassifier {
     vector<WeakEstimator> estimators;
     int iterations;
+    int depth;
 
 public:
 
-    AdaBoostClassifier(int _iter) : iterations(_iter) {}
+    AdaBoostClassifier(int _iter, int _depth = 1) : iterations(_iter), depth(_depth) {}
 
     void train(vector<DataPoint>& data) {
         vector<double> weights(data.size(), 1.0/data.size());
         for(int t = 0; t < iterations; t++) {
-            shared_ptr<WeightedDecisionTree> newEstimator = make_shared<WeightedDecisionTree>(WeightedDecisionTree(data, weights));
+            shared_ptr<WeightedDecisionTree> newEstimator = make_shared<WeightedDecisionTree>(WeightedDecisionTree(data, weights, depth));
             newEstimator->generateDecisions();
 
             // Calculating error
