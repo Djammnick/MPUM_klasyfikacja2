@@ -12,8 +12,8 @@ int main() {
     vector<DataPoint> testData = inputData("../data/test.data", '\t');
     clog << "Successfully read " << testData.size() << " testing datapoint.\n";
 
-    vector<int> split_values = {1, 2, 3, 4, 5, 10, 20, 30, 45, 150, 200, 250};
-    vector<int> depth_values = {3, 4, 5, 7, 10, 20, 30, 40, 50};
+    vector<int> split_values = {1, 2, 3, 4, 5, 10};
+    vector<int> depth_values = {10, 12, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 30};
 
     double bestValidationError = 1;
     pair<int, int> bestPair;

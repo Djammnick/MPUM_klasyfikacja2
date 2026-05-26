@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include "decision_tree.hpp"
+#include "knn.hpp"
 
 using namespace std;
 
@@ -11,13 +11,12 @@ int main() {
     vector<DataPoint> testData = inputData("../data/test.data", '\t');
     clog << "Successfully read " << testData.size() << " testing datapoints.\n";
 
-    DecisionTree decisionTree(trainData, 19, 1);
-    decisionTree.importDecisions("output/decision_tree1_19.txt");
-    
-    double trainError = decisionTree.testDecisionTree(trainData);
+    KNNClassifier knn(trainData, 5);
+
+    double trainError = knn.testKNN(trainData);
     cout << "% Train Error: " << trainError << '\n';
-    double validError = decisionTree.testDecisionTree(validData);
+    double validError = knn.testKNN(validData);
     cout << "% Valid Error: " << validError << '\n';
-    double testError = decisionTree.testDecisionTree(testData);
+    double testError = knn.testKNN(testData);
     cout << "% Test Error: " << testError << '\n';
 }
