@@ -89,6 +89,22 @@ void outputData(const string& fileName, vector<DataPoint>& data, char delimiter 
     }
 }
 
+void outputPolyData(const string& fileName, vector<DataPoint>& data, char delimiter = ' ') {
+
+    for(auto &D : data) {
+        int S = D.X.size();
+        for(int i = 0; i < S; i++) {
+            D.X.push_back(D.X[i]*D.X[i]);
+        }
+        for(int i = 0; i < S; i++) {
+            for(int j = i+1; j < S; j++) {
+                D.X.push_back(D.X[i]*D.X[j]);
+            }
+        }
+    }
+    outputData(fileName, data, delimiter);
+}
+
 // Separate data randomly into three vectors with a 60-20-20 split.
 // A custom seed can be given.
 array<vector<DataPoint>, 3> splitData(vector<DataPoint>& data, int seed = 2026) {

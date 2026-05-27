@@ -286,12 +286,20 @@ public:
     }
 
     double testAdaBoost(const vector<DataPoint>& data, int iterations = 1<<30) {
-        int correct = 0, wrong = 0;
+        int truePositive = 0, trueNegative = 0, falsePositive = 0, falseNegative = 0;
         for(auto &datapoint : data) {
-            if(classify(datapoint, iterations) == datapoint.Y) correct++;
-            else wrong++;
+            if(classify(datapoint, iterations) == datapoint.Y) {
+                if(datapoint.Y == 1) truePositive++;
+                else trueNegative++;
+            }
+            else {
+                if(datapoint.Y == 1) falsePositive++;
+                else falseNegative++;
+            }
         }
-        return (double)wrong / (double)(correct+wrong);
+        cout << "Dokladnosc: " << (double)(truePositive+trueNegative) / (double)(truePositive+trueNegative+falsePositive+falseNegative) << '\n';
+        cout << "Precyzja: " << (double)(truePositive) / (double)(truePositive+falseNegative) << '\n';
+        return (double)(falsePositive+falseNegative) / (double)(truePositive+trueNegative+falsePositive+falseNegative);
     }
 
     // Export the underlying structure

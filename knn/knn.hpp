@@ -46,12 +46,20 @@ public:
     }
 
     double testKNN(vector<DataPoint>& data) {
-        int correct = 0, wrong = 0;
+        int truePositive = 0, trueNegative = 0, falsePositive = 0, falseNegative = 0;
         for(auto &datapoint : data) {
-            if(classify(datapoint) == datapoint.Y) correct++;
-            else wrong++;
+            if(classify(datapoint) == datapoint.Y) {
+                if(datapoint.Y == 1) truePositive++;
+                else trueNegative++;
+            }
+            else {
+                if(datapoint.Y == 1) falsePositive++;
+                else falseNegative++;
+            }
         }
-        return (double)wrong / (double)(correct+wrong);
+        cout << "Dokladnosc: " << (double)(truePositive+trueNegative) / (double)(truePositive+trueNegative+falsePositive+falseNegative) << '\n';
+        cout << "Precyzja: " << (double)(truePositive) / (double)(truePositive+falseNegative) << '\n';
+        return (double)(truePositive+trueNegative) / (double)(truePositive+trueNegative+falsePositive+falseNegative);
     }
 };
 

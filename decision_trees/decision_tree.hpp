@@ -202,13 +202,31 @@ public:
 
     // Test the decision tree on a given set of datapoints.
     // Returns the percentage of falsely classified points.
-    double testDecisionTree(const vector<DataPoint>& data) {
+    /*double testDecisionTree(const vector<DataPoint>& data) {
         int correct = 0, wrong = 0;
         for(auto &datapoint : data) {
             if(datapoint.Y == classify(datapoint)) correct++;
             else wrong++;
         }
         return (double)wrong / (double)(correct+wrong);
+    }*/
+
+    double testDecisionTree(const vector<DataPoint>& data) {
+        int truePositive = 0, trueNegative = 0, falsePositive = 0, falseNegative = 0;
+        for(auto &datapoint : data) {
+            if(classify(datapoint) == datapoint.Y) {
+                if(datapoint.Y == 1) truePositive++;
+                else trueNegative++;
+            }
+            else {
+                if(datapoint.Y == 1) falsePositive++;
+                else falseNegative++;
+            }
+        }
+        cout << "Dokladnosc: " << (double)(truePositive+trueNegative) / (double)(truePositive+trueNegative+falsePositive+falseNegative) << '\n';
+        cout << "Precyzja: " << (double)(truePositive) / (double)(truePositive+falseNegative) << '\n';
+        return (double)(truePositive+trueNegative) / (double)(truePositive+trueNegative+falsePositive+falseNegative);
+    
     }
 };
 
