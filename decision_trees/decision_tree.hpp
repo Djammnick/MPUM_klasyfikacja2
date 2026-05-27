@@ -186,26 +186,27 @@ public:
         //cout << "Imported decision tree.\n";
     }
 
+    // Classifies a single point.
+    int classify(const DataPoint& dataPoint) {
+        shared_ptr<Decision> curr = root;
+        while(true) {
+            if(holds_alternative<Leaf>(curr->V)) {
+                return get<Leaf>(curr->V).classification;
+            } else {
+                Split s = get<Split>(curr->V);
+                if(dataPoint.X[s.parameter_no] <= s.border) curr = s.lower_or_eq;
+                else curr = s.higher;
+            }
+        }
+    }
+
     // Test the decision tree on a given set of datapoints.
-    // Returns the fraction of falsely classified points.
+    // Returns the percentage of falsely classified points.
     double testDecisionTree(const vector<DataPoint>& data) {
         int correct = 0, wrong = 0;
-
         for(auto &datapoint : data) {
-            shared_ptr<Decision> curr = root;
-            while(true) {
-                if(holds_alternative<Leaf>(curr->V)) {
-                    Leaf l = get<Leaf>(curr->V);
-                    //cout << "CORRECT: " << datapoint.Y << " GUESS: " << l.classification << '\n';
-                    if(datapoint.Y == l.classification) correct++;
-                    else wrong++;
-                    break;
-                } else {
-                    Split s = get<Split>(curr->V);
-                    if(datapoint.X[s.parameter_no] <= s.border) curr = s.lower_or_eq;
-                    else curr = s.higher;
-                }
-            }
+            if(datapoint.Y == classify(datapoint)) correct++;
+            else wrong++;
         }
         return (double)wrong / (double)(correct+wrong);
     }

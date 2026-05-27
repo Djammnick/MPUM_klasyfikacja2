@@ -11,7 +11,7 @@ int main() {
     adaBoostClassifier.train(trainData);
 
     double trainError = adaBoostClassifier.testAdaBoost(trainData);
-    cout << "TRAIN ERROR %: " << trainError << '\n';
+    cout << "TRAIN ERROR: " << trainError << '\n';
 
     adaBoostClassifier.exportClassifiers("output/classifiers.txt");
 }

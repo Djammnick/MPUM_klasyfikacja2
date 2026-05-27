@@ -38,9 +38,9 @@ int main() {
             depths.push_back(depth_values[j]);
             valids.push_back(validError);
             //cout << "With split_limit=" << split_values[i] << " and depth_limit=" << depth_values[j] << "\n";
-            //cout << "TRAIN % WRONG: " << trainError << '\n';
-            //cout << "VALID % WRONG: " << validError << '\n';
-            //cout << "TEST % WRONG: " << testError << '\n';
+            //cout << "TRAIN WRONG: " << trainError << '\n';
+            //cout << "VALID WRONG: " << validError << '\n';
+            //cout << "TEST WRONG: " << testError << '\n';
         }
     }
 

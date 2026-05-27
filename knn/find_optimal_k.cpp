@@ -12,6 +12,8 @@ int main() {
     vector<DataPoint> testData = inputData("../data/test.data", '\t');
     clog << "Successfully read " << testData.size() << " testing datapoint.\n";
 
+    vector<int> ks;
+    vector<double> errs; 
     int k_limit = 30;
     KNNClassifier knn(trainData, 0);
     double bestValidationError = 1;
@@ -25,11 +27,20 @@ int main() {
             bestValidationError = validError;
             bestK = i;
         }
-        cout << "With k=" << i << ":\n";
-        cout << "TRAIN % WRONG: " << trainError << '\n';
-        cout << "VALID % WRONG: " << validError << '\n';
-        cout << "TEST % WRONG: " << testError << '\n';
+        //cout << "With k=" << i << ":\n";
+        //cout << "TRAIN % WRONG: " << trainError << '\n';
+        //cout << "VALID % WRONG: " << validError << '\n';
+        //cout << "TEST % WRONG: " << testError << '\n';
+        ks.push_back(i);
+        errs.push_back(validError);
     }
+
+    for(auto dk : ks) {
+        cout << dk << ' ';
+    } cout << '\n';
+    for(auto derr : errs) {
+        cout << derr << ' ';
+    } cout << '\n';
 
     cout << "Best-performing model (based on validation set):\n";
     cout << "Best iteration: " << bestK << " with validation error " << bestValidationError << '\n';

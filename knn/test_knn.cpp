@@ -11,7 +11,7 @@ int main() {
     vector<DataPoint> testData = inputData("../data/test.data", '\t');
     clog << "Successfully read " << testData.size() << " testing datapoints.\n";
 
-    KNNClassifier knn(trainData, 5);
+    KNNClassifier knn(trainData, 1);
 
     double trainError = knn.testKNN(trainData);
     cout << "% Train Error: " << trainError << '\n';

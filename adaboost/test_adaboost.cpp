@@ -15,10 +15,10 @@ int main() {
     adaBoostClassifier.importClassifiers("output/classifiers.txt");
 
     double trainError = adaBoostClassifier.testAdaBoost(trainData);
-    cout << "% Train Error: " << trainError << '\n';
+    cout << "Train Error: " << trainError << '\n';
     double validError = adaBoostClassifier.testAdaBoost(validData);
-    cout << "% Valid Error: " << validError << '\n';
+    cout << "Valid Error: " << validError << '\n';
     double testError = adaBoostClassifier.testAdaBoost(testData);
-    cout << "% Test Error: " << testError << '\n';
+    cout << "Test Error: " << testError << '\n';
 
 }

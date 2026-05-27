@@ -15,9 +15,9 @@ int main() {
     decisionTree.importDecisions("output/decision_tree1_19.txt");
     
     double trainError = decisionTree.testDecisionTree(trainData);
-    cout << "% Train Error: " << trainError << '\n';
+    cout << "Train Error: " << trainError << '\n';
     double validError = decisionTree.testDecisionTree(validData);
-    cout << "% Valid Error: " << validError << '\n';
+    cout << "Valid Error: " << validError << '\n';
     double testError = decisionTree.testDecisionTree(testData);
-    cout << "% Test Error: " << testError << '\n';
+    cout << "Test Error: " << testError << '\n';
 }
